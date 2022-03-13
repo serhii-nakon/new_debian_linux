@@ -1,0 +1,17 @@
+lxc.net.0.type = veth
+lxc.net.0.link = lxcbr0
+lxc.net.0.flags = up
+lxc.apparmor.profile = unconfined
+lxc.apparmor.allow_nesting = 1
+
+# There will replaced <PATHTOAPP> to path from host OS where will runned lxc_up.sh
+lxc.mount.entry = <PATHTOAPP> root/build none bind,optional,create=dir,rw 0 0
+
+# There IDs will replaced to user/group IDs who run lxc_up.sh
+# There mapping root user from container to user from host OS who run lxc_up.sh
+lxc.idmap = u 0 <USERID> 1
+lxc.idmap = g 0 <GROUPID> 1
+
+# Mapping all another users/groups to +100000 to original user/group ID
+lxc.idmap = u 1 100001 65535
+lxc.idmap = g 1 100001 65535
