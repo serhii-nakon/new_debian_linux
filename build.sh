@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-LINUX_VERSION=5.16.14
+LINUX_VERSION=5.17
 
 apt update && apt full-upgrade -y && \
 apt install build-essential linux-source bc kmod cpio flex bison libelf-dev libssl-dev libncurses5-dev rsync python3 dwarves wget -y && \
