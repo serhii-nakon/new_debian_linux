@@ -14,7 +14,7 @@ git clone https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmwar
 rm -rf /lib/firmware
 mv /tmp/linux-firmware /lib/firmware
 
-cd /root
+cd /root/build
 wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-$LINUX_VERSION.tar.xz -O - | tar xJ
 
 cp -v /root/build/config /root/build/linux-$LINUX_VERSION/.config
