@@ -2,7 +2,7 @@
 
 set -e
 
-LINUX_VERSION=6.0
+LINUX_VERSION=6.1
 
 apt update
 apt full-upgrade -y
