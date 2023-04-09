@@ -2,7 +2,7 @@
 
 set -e
 
-LINUX_VERSION=6.1
+LINUX_VERSION=6.2.10
 
 apt update
 apt full-upgrade -y
@@ -14,7 +14,6 @@ wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-$LINUX_VERSION.tar.xz -O
 
 cp -v /root/build/config /root/build/linux-$LINUX_VERSION/.config
 cd /root/build/linux-$LINUX_VERSION
-patch -p1 < /root/build/patches/0001-Revert-iwlwifi-remove-lar_disable-module-parameter.patch
 make oldconfig
 scripts/config --disable SECURITY_LOCKDOWN_LSM
 scripts/config --disable MODULE_SIG
