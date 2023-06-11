@@ -2,12 +2,12 @@
 
 set -e
 
-LINUX_VERSION=6.2.10
+LINUX_VERSION=6.3.7
 
 apt update
 apt full-upgrade -y
 
-apt install build-essential linux-source bc kmod cpio flex bison libelf-dev libssl-dev libncurses5-dev rsync python3 dwarves wget git -y
+apt install build-essential linux-source bc kmod cpio flex bison libelf-dev libssl-dev libncurses5-dev rsync python3 dwarves wget git debhelper -y
 
 cd /root/build
 wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-$LINUX_VERSION.tar.xz -O - | tar xJ
