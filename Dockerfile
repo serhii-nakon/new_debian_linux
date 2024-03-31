@@ -1,5 +1,5 @@
 FROM debian:bookworm
-ENV LINUX_VERSION=6.7.5
+ENV LINUX_VERSION=6.7.11
 
 RUN apt update && \
     apt full-upgrade -y && \
