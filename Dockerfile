@@ -1,5 +1,5 @@
 FROM debian:bookworm
-ENV LINUX_VERSION=6.7.11
+ENV LINUX_VERSION=6.8.4
 
 RUN apt update && \
     apt full-upgrade -y && \
@@ -17,8 +17,9 @@ WORKDIR /root/build/linux-$LINUX_VERSION/
 RUN make oldconfig
 RUN scripts/config --disable SECURITY_LOCKDOWN_LSM
 RUN scripts/config --disable MODULE_SIG
-RUN make -j$(nproc) bindeb-pkg LOCALVERSION=-my KDEB_PKGVERSION=$(make kernelversion)-1 ARCH=x86_64
+RUN make -j$(nproc) bindeb-pkg
 
 COPY copy.sh /root/copy.sh
 
 ENTRYPOINT [ "/root/copy.sh" ]
+# ENTRYPOINT [ "tail", "-f", "/dev/null" ]
