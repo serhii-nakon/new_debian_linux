@@ -1,5 +1,5 @@
 FROM debian:bookworm
-ENV LINUX_VERSION=6.8.4
+ENV LINUX_VERSION=6.9
 
 RUN apt update && \
     apt full-upgrade -y && \
