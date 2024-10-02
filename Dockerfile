@@ -1,5 +1,5 @@
 FROM debian:bookworm
-ENV LINUX_VERSION=6.9.7
+ENV LINUX_VERSION=6.11.1
 
 RUN apt update && \
     apt full-upgrade -y && \
@@ -11,8 +11,13 @@ WORKDIR /root/build
 
 RUN wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-$LINUX_VERSION.tar.xz -O - | tar xJ
 COPY config /root/build/linux-$LINUX_VERSION/.config
+COPY ./*.patch /root/build/linux-$LINUX_VERSION/
 
 WORKDIR /root/build/linux-$LINUX_VERSION/
+
+RUN patch -p1 < 0001-drm-amd-pm-update-the-default-power-limit-on-smu-13..patch
+RUN patch -p1 < 0003-drm-amdgpu-swsmu-Only-force-workload-setup-on-init.patch
+RUN patch -p1 < 0002-drm-amdgpu-smu13-always-apply-the-powersave-optimiza.patch
 
 RUN make oldconfig
 RUN scripts/config --disable SECURITY_LOCKDOWN_LSM
