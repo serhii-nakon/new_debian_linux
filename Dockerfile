@@ -1,5 +1,5 @@
 FROM debian:bookworm
-ENV LINUX_VERSION=6.11.7
+ENV LINUX_VERSION=6.12.5
 
 RUN apt update && \
     apt full-upgrade -y && \
@@ -18,6 +18,8 @@ WORKDIR /root/build/linux-$LINUX_VERSION/
 RUN make oldconfig
 RUN scripts/config --disable SECURITY_LOCKDOWN_LSM
 RUN scripts/config --disable MODULE_SIG
+RUN scripts/config --enable CONFIG_MSI_EC
+RUN scripts/config --enable CONFIG_FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER
 RUN make -j$(nproc) bindeb-pkg
 
 COPY copy.sh /root/copy.sh
