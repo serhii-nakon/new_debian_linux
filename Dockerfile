@@ -1,5 +1,5 @@
 FROM debian:bookworm
-ENV LINUX_VERSION=6.12.5
+ENV LINUX_VERSION=6.12.6
 
 RUN apt update && \
     apt full-upgrade -y && \
@@ -15,11 +15,16 @@ COPY ./*.patch /root/build/linux-$LINUX_VERSION/
 
 WORKDIR /root/build/linux-$LINUX_VERSION/
 
-RUN make oldconfig
+RUN patch -p1 < ath12k_rebased.patch
+
+RUN make olddefconfig
 RUN scripts/config --disable SECURITY_LOCKDOWN_LSM
 RUN scripts/config --disable MODULE_SIG
 RUN scripts/config --enable CONFIG_MSI_EC
 RUN scripts/config --enable CONFIG_FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER
+# RUN scripts/config --enable CONFIG_ATH12K_DEBUG
+RUN scripts/config --enable CONFIG_CFG80211_CERTIFICATION_ONUS
+RUN scripts/config --enable CONFIG_ATH_REG_DYNAMIC_USER_REG_HINTS
 RUN make -j$(nproc) bindeb-pkg
 
 COPY copy.sh /root/copy.sh
