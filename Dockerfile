@@ -1,5 +1,5 @@
-FROM debian:bookworm
-ENV LINUX_VERSION=6.14.6
+FROM debian:trixie
+ENV LINUX_VERSION=6.16
 
 RUN apt update && \
     apt full-upgrade -y && \
