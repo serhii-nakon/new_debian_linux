@@ -1,0 +1,28 @@
+diff --git a/drivers/net/wireless/ath/ath12k/dp_tx.c b/drivers/net/wireless/ath/ath12k/dp_tx.c
+index abc84ca..e239fb3 100644
+--- a/drivers/net/wireless/ath/ath12k/dp_tx.c
++++ b/drivers/net/wireless/ath/ath12k/dp_tx.c
+@@ -636,8 +636,8 @@ ath12k_dp_tx_htt_tx_complete_buf(struct ath12k_base *ab,
+ 	spin_lock_bh(&ab->base_lock);
+ 	peer = ath12k_peer_find_by_id(ab, peer_id);
+ 	if (!peer || !peer->sta) {
+-		ath12k_dbg(ab, ATH12K_DBG_DATA,
+-			   "dp_tx: failed to find the peer with peer_id %d\n", peer_id);
++		// ath12k_dbg(ab, ATH12K_DBG_DATA,
++		// 	   "dp_tx: failed to find the peer with peer_id %d\n", peer_id);
+ 		spin_unlock_bh(&ab->base_lock);
+ 		ieee80211_free_txskb(ath12k_ar_to_hw(ar), msdu);
+ 		goto exit;
+@@ -930,9 +930,9 @@ static void ath12k_dp_tx_complete_msdu(struct ath12k *ar,
+ 	spin_lock_bh(&ab->base_lock);
+ 	peer = ath12k_peer_find_by_id(ab, ts->peer_id);
+ 	if (!peer || !peer->sta) {
+-		ath12k_err(ab,
+-			   "dp_tx: failed to find the peer with peer_id %d\n",
+-			   ts->peer_id);
++		// ath12k_err(ab,
++		// 	   "dp_tx: failed to find the peer with peer_id %d\n",
++		// 	   ts->peer_id);
+ 		spin_unlock_bh(&ab->base_lock);
+ 		ieee80211_free_txskb(ath12k_ar_to_hw(ar), msdu);
+ 		goto exit;
