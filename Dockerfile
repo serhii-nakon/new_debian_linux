@@ -1,5 +1,5 @@
 FROM debian:trixie
-ENV LINUX_VERSION=6.17.4
+ENV LINUX_VERSION=6.18
 
 RUN apt update && \
     apt full-upgrade -y && \
