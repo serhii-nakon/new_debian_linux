@@ -1,5 +1,5 @@
 FROM debian:trixie
-ENV LINUX_VERSION=7.0.1
+ENV LINUX_VERSION=7.2.8
 
 RUN apt update && \
     apt full-upgrade -y && \
@@ -9,17 +9,13 @@ RUN apt update && \
 RUN mkdir /root/build
 WORKDIR /root/build
 
-# RUN git clone --single-branch --branch main --depth 1 https://git.kernel.org/pub/scm/linux/kernel/git/ath/ath.git
-# COPY config /root/build/ath/.config
-# WORKDIR /root/build/ath/
-
 RUN wget https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-$LINUX_VERSION.tar.xz -O - | tar xJ
 COPY config /root/build/linux-$LINUX_VERSION/.config
-# COPY qmi_force.patch /root/build/
-# COPY disable_throwing_errors.patch /root/build/
 WORKDIR /root/build/linux-$LINUX_VERSION/
-# RUN patch -p1 < ../qmi_force.patch
-# RUN patch -p1 < ../disable_throwing_errors.patch
+
+# Patches
+# COPY test.patch /root/build/
+# RUN patch -p1 < ../test.patch
 
 RUN make olddefconfig
 RUN scripts/config --disable SECURITY_LOCKDOWN_LSM
